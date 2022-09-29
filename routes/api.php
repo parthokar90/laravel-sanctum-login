@@ -3,7 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\admin\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/login',[AuthController::class,'login']);
-Route::get('/profile',[ProfileController::class,'profile'])->middleware('auth:sanctum');
 
+/*
+|--------------------------------------------------------------------------
+| Login and dashboard route
+|--------------------------------------------------------------------------
+*/
+Route::post('/login',[AuthController::class,'login']);
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth:sanctum');
+
+
+/*
+|--------------------------------------------------------------------------
+| Task create route
+|--------------------------------------------------------------------------
+*/
+Route::resource('task',TaskController::class)->middleware('auth:sanctum');
